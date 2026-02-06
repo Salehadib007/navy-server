@@ -12,7 +12,14 @@ connectDB();
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors(
+    cors({
+      origin: "https://navy-ruddy.vercel.app",
+      credentials: true,
+    }),
+  ),
+);
 app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/setup", setupRoutes);
