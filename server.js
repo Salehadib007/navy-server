@@ -12,13 +12,16 @@ connectDB();
 
 const app = express();
 
+const allowedOrigins = [
+  "https://navy-ruddy.vercel.app",
+  "http://localhost:5173",
+];
+
 app.use(
-  cors(
-    cors({
-      origin: "https://navy-ruddy.vercel.app",
-      credentials: true,
-    }),
-  ),
+  cors({
+    origin: allowedOrigins,
+    credentials: true,
+  }),
 );
 app.use(express.json());
 app.use("/api/auth", authRoutes);
