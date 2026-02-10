@@ -5,6 +5,7 @@ import {
   getEnrollmentById,
   updateEnrollment,
   deleteEnrollment,
+  getEnrollmentsByIds,
 } from "../controllers/enrollment.controller.js";
 import authMiddleware from "../middlewares/auth.middleware.js";
 
@@ -15,6 +16,7 @@ router.post("/", authMiddleware, createEnrollment);
 
 // Get all
 router.get("/", authMiddleware, getEnrollments);
+router.get("/:ids", getEnrollmentsByIds);
 
 // Get single
 router.get("/:id", authMiddleware, getEnrollmentById);

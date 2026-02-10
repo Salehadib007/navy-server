@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import Enrollment from "../models/Enrollment.js";
 
 // Create enrollment
@@ -78,5 +79,29 @@ export const deleteEnrollment = async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "Failed to delete enrollment" });
+  }
+};
+
+// GET /enrollments/:ids  -> ids = comma-separated string of enrollment IDs
+export const getEnrollmentsByIds = async (req, res) => {
+  try {
+    const { ids } = req.params;
+
+    if (!ids) {
+      return res.status(400).json({ message: "No IDs provided" });
+    }
+
+    // Split the comma-separated string into an array
+    const idsArray = ids.split(",");
+
+    // Fetch enrollments with IDs in the array
+    const enrollments = await Enrollment.find({ _id: { $in: idsArray } }).sort({
+      createdAt: -1,
+    });
+
+    res.status(200).json(enrollments);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to fetch enrollments" });
   }
 };
