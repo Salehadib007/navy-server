@@ -19,12 +19,20 @@ const allowedOrigins = [
 
 app.use(
   cors({
-    origin: allowedOrigins,
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true); // allow server-to-server requests
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
   }),
 );
 
 app.use(express.json());
+// app.options("*", cors());
 app.use("/api/auth", authRoutes);
 app.use("/api/setup", setupRoutes);
 app.use("/api/upload", uploadRoutes);
@@ -34,3 +42,5 @@ app.use("/api/enrollment", enrollmentRoutes);
 // app.listen(PORT, () => {
 //   console.log(`Server running on port ${PORT}`);
 // });
+
+export default app;
