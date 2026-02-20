@@ -6,6 +6,8 @@ import authRoutes from "./routes/auth.routes.js";
 import setupRoutes from "./routes/setup.routes.js";
 import uploadRoutes from "./routes/upload.routes.js";
 import enrollmentRoutes from "./routes/enrollment.routes.js";
+import vehicleRoutes from "./routes/vehicle.routes.js";
+import registrationRoutes from "./routes/registrationRoutes.js";
 
 loadEnv();
 connectDB();
@@ -37,6 +39,8 @@ app.use("/api/auth", authRoutes);
 app.use("/api/setup", setupRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/enrollment", enrollmentRoutes);
+app.use("/api/vehicle", vehicleRoutes);
+app.use("/api/registrations", registrationRoutes);
 
 // const PORT = process.env.PORT || 5000;
 // app.listen(PORT, () => {
