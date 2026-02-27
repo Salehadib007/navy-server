@@ -1,7 +1,9 @@
 import mongoose from "mongoose";
+import { getNextSequence } from "../utils/getNextSequence.js";
 
 const enrollmentSchema = new mongoose.Schema(
   {
+    enrollmentId: { type: String, unique: true },
     // ---------------- PERSONAL ----------------
     pno: { type: String, required: true },
     officialRank: { type: String, required: true },
@@ -46,5 +48,13 @@ const enrollmentSchema = new mongoose.Schema(
   },
   { timestamps: true },
 );
+// 🔹 Auto-increment middleware
+enrollmentSchema.pre("save", async function () {
+  if (!this.enrollmentId) {
+    const seq = await getNextSequence("enrollmentId");
+    const year = new Date().getFullYear().toString().slice(-2);
 
+    this.enrollmentId = `${String(seq)}/${year}`;
+  }
+});
 export default mongoose.model("Enrollment", enrollmentSchema);
