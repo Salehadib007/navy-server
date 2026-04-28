@@ -19,7 +19,7 @@ router.get("/", authMiddleware, getEnrollments);
 router.get("/bulk/:ids", getEnrollmentsByIds);
 
 // Get single
-router.get("/:id", authMiddleware, getEnrollmentById);
+router.get("/:id", getEnrollmentById);
 
 router.put("/:id", authMiddleware, updateEnrollment); // update
 router.delete("/:id", authMiddleware, deleteEnrollment); // delete
