@@ -16,7 +16,7 @@ router.post("/", authMiddleware, createEnrollment);
 
 // Get all
 router.get("/", authMiddleware, getEnrollments);
-router.get("/:ids", getEnrollmentsByIds);
+router.get("/bulk/:ids", getEnrollmentsByIds);
 
 // Get single
 router.get("/:id", authMiddleware, getEnrollmentById);
